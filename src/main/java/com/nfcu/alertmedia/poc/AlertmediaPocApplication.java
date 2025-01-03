@@ -28,8 +28,10 @@ public class AlertmediaPocApplication {
 			//System.setProperty("webdriver.chrome.driver", AlertmediaPocApplication.class.getClassLoader().getResource("chrome.exe").getPath());
 			String myPath = getClass().getClassLoader().getResource("chromedriver.exe").getPath();
 			//String myPath = getClass().getClassLoader().getResource("geckodriver.exe").getPath();
+			myPath = myPath.replaceAll("/C:", "");
+			myPath = myPath.replaceAll("/D:", "");
 			System.out.println("myPath2:" + myPath);
-			System.setProperty("webdriver.chrome.driver", myPath.replaceAll("/C:", ""));
+			System.setProperty("webdriver.chrome.driver", myPath);
 			// Define ChromeDriver options
 	        ChromeOptions options = new ChromeOptions();
 	        options.addArguments("headless");
