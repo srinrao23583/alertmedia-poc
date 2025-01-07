@@ -38,8 +38,9 @@ public class AlertmediaPocApplication {
 			//myPath = myPath.replaceAll("/D:", "");
 			//System.out.println("myPath2:" + myPath);
 			//System.setProperty("webdriver.chrome.driver", myPath);
-			/*
+			
 			// Define ChromeDriver options
+			/*
 	        ChromeOptions options = new ChromeOptions();
 	        options.addArguments("headless");
 			
@@ -62,23 +63,31 @@ public class AlertmediaPocApplication {
 			
 			try (Playwright playwright = Playwright.create()) {
 				flowMessage += "Created PR, ";
-	            BrowserType chromium = playwright.chromium();
-	            flowMessage += "Created Browser, ";
+	            //BrowserType chromium = playwright.firefox();
+	            //flowMessage += "Created Browser, ";
 	            // Connect to Browserless 
-	            Browser browser = chromium.connectOverCDP("wss://chrome.browserless.io?token=RVyoFsgeAqd7dd210b99202d220f5e66fa5724ac81");
-	            flowMessage += "connected to BL IO, ";
+	            //Browser browser = chromium.connectOverCDP("wss://chrome.browserless.io?token=RVyoFsgeAqd7dd210b99202d220f5e66fa5724ac81");
+	            Browser browser = playwright.chromium().launch();
+	            flowMessage += "Launchede chromium, ";
 	            // Create a new page and navigate to a URL
 	            Page page = browser.newPage();
 	            page.navigate("https://www.google.com/");
 	            flowMessage += "Opened Page ";	
 	            browser.close();
+	        } catch(Exception e) {
+	        	flowMessage += "Exception in playright, ";	
 	        }
 			
+			/*
+			BrowserStackTest bsTest = new BrowserStackTest();
+			String bsMessage = bsTest.getFromBrowserStack();			
+			flowMessage += bsMessage;
+			*/
 		} catch (Exception e) {
 			return "AlertMedia processing is failed, Flow:" + flowMessage +", Error:" + e.getMessage();
 		}
 		
-		return "AlertMedia Notofication is received!!!";
+		return "AlertMedia Notofication is received!!! " + flowMessage;
 	}
 	
 	private String getMFACode() {
